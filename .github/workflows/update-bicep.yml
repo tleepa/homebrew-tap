@@ -1,0 +1,41 @@
+name: Update bicep
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-bicep:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Prereqs
+        run: |
+          set -euxo pipefail
+          command -v envsubst || (apt-get update && apt-get -y install gettext)
+
+      - name: Update bicep
+        run: |
+          set -euxo pipefail
+
+          release=$(curl -fsSL https://api.github.com/repos/Azure/bicep/releases/latest)
+          export version=$(jq -r '.name | ltrimstr("v")' <<< $release)
+
+          shas=$(jq '[.assets[] | select((.browser_download_url | contains("linux") or contains("osx")) and (.browser_download_url | contains("nupkg") | not)) | {key: (.name | sub("bicep"; "sha256") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< $release)
+          for item in sha256_{linux,osx}_{arm64,x64}; do export $item=$(jq -r --arg item "$item" '.[$item]' <<< $shas); done
+
+          envsubst < ./.github/workflows/bicep.rb.tpl > ./Formula/bicep.rb
+
+      # - name: Update update-homebrew branch
+      #   uses: stefanzweifel/git-auto-commit-action@v7
+      #   with:
+      #     commit_message: Update Homebrew to v${{ steps.get_release_version.outputs.result }}
+      #     branch: update-homebrew
+      #     create_branch: true
+
+      # - name: Shortcut for PR creation
+      #   run: echo "Use this link to create a PR -> https://github.com/Azure/homebrew-bicep/compare/main...update-homebrew"
