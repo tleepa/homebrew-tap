@@ -40,7 +40,7 @@ class Bicep < Formula
   end
 
   def install
-    bin.install "bicep-#{OS.kernel_name.downcase}-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep"
+    bin.install "bicep-#{OS.kernel_name.downcase}-#{Hardware::CPU.arch}".sub("darwin", "osx").sub("x86_64", "x64") => "bicep"
   end
 
   test do
