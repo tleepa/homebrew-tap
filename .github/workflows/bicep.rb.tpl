@@ -40,12 +40,8 @@ class Bicep < Formula
   end
 
   def install
-    on_macos do
-      bin.install "bicep-osx-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep"
-    end
-    on_linux do
-      bin.install "bicep-linux-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep"
-    end
+    bin.install "bicep-osx-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep" if OS.mac?
+    bin.install "bicep-linux-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep" if OS.linux?
   end
 
   test do
