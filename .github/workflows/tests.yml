@@ -37,8 +37,6 @@ jobs:
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
-        # env:
-        #   SHELLCHECK_OPTS: "-e SC2086,SC2124"
 
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
