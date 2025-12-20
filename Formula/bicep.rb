@@ -1,9 +1,9 @@
 class Bicep < Formula
   desc "Declarative language for describing and deploying Azure resources"
   homepage "https://github.com/Azure/bicep"
-  # url "https://github.com/Azure/bicep/archive/refs/tags/v0.38.33.tar.gz"
+  # url "https://github.com/Azure/bicep/archive/refs/tags/v0.39.26.tar.gz"
   # sha256 "45f12c684b0e881069b0ab81af9558fc9a5b8c0d9c75bff99932c49269def04b"
-  version "0.38.33"
+  version "0.39.26"
   license "MIT"
 
   livecheck do
@@ -13,28 +13,28 @@ class Bicep < Formula
 
   on_macos do
     on_intel do
-      url "https://github.com/Azure/bicep/releases/download/v0.38.33/bicep-osx-x64"
-      sha256 "ccc9721f25597445346ca5c7c8898e533936e690d502f3dfb7db2e0a542f6aee"
+      url "https://github.com/Azure/bicep/releases/download/v0.39.26/bicep-osx-x64"
+      sha256 "be872575ace43946d07aee5fc8e7aa0810de6e283c0ca1599ea0b57eaba81324"
     end
 
     on_arm do
-      url "https://github.com/Azure/bicep/releases/download/v0.38.33/bicep-osx-arm64"
-      sha256 "6ec9502fde079c8f7e2a4b63209be42dc278eea421f983807fedeaff27b4f2e8"
+      url "https://github.com/Azure/bicep/releases/download/v0.39.26/bicep-osx-arm64"
+      sha256 "d7aae5ad33741ef5ca11d8819e28f6e2c7ba187c18bedc05b3be77036a4d4716"
     end
   end
 
   on_linux do
     on_intel do
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/Azure/bicep/releases/download/v0.38.33/bicep-linux-x64"
-        sha256 "07e28411c2cb3a731660a32bb735268c2d1506c564bcea613eed1323e9926712"
+        url "https://github.com/Azure/bicep/releases/download/v0.39.26/bicep-linux-x64"
+        sha256 "e919c8e160c030dbacde9d998ffab23fc8faf7943977c62b3d98b3b51f24f720"
       end
     end
 
     on_arm do
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/Azure/bicep/releases/download/v0.38.33/bicep-linux-arm64"
-        sha256 "83086d265071a40363ba59790636a8d538cf0f472394ee159adba589512e695e"
+        url "https://github.com/Azure/bicep/releases/download/v0.39.26/bicep-linux-arm64"
+        sha256 "e4871dd4f18c48f0729ac30524d52192a98a8bf861a9a93a8e8af0b62b0d2ba7"
       end
     end
   end
