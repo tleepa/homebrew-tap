@@ -5,20 +5,29 @@ on:
 
 jobs:
   update-bicep:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Prereqs
         run: |
           set -euxo pipefail
           command -v envsubst || (apt-get update && apt-get -y install gettext)
 
+      - name: Current version
+        id: current-version
+        run: |
+          CUR_VERSION=$(grep -oP "version \"\K[\d.]+(?=\")" Formula/bicep.rb)
+
+          echo "CUR_VERSION=$CUR_VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Update bicep
+        id: update-bicep
         run: |
           set -euxo pipefail
 
@@ -27,21 +36,24 @@ jobs:
           version=$(jq -r '.name | ltrimstr("v")' <<< "$release")
           export version
 
-          shas=$(jq '[.assets[] | select((.browser_download_url | contains("linux") or contains("osx")) and (.browser_download_url | contains("nupkg") | not)) | {key: (.name | sub("bicep"; "sha256") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
-          for item in sha256_{linux,osx}_{arm64,x64}
-          do
-            declare -x "$item"="$(jq -r --arg item "$item" '.[$item]' <<< "$shas")"
-          done
+          if [[ "$version" > "$(sort -V <<<"$(echo "$version"; echo "${{steps.current-version.outputs.CUR_VERSION}}")" | head -n1)" ]]; then
+            shas=$(jq '[.assets[] | select((.browser_download_url | contains("linux") or contains("osx")) and (.browser_download_url | contains("nupkg") | not)) | {key: (.name | sub("bicep"; "sha256") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
+            for item in sha256_{linux,osx}_{arm64,x64}
+            do
+              declare -x "$item"="$(jq -r --arg item "$item" '.[$item]' <<< "$shas")"
+            done
 
-          envsubst < ./.github/workflows/bicep.rb.tpl > ./Formula/bicep.rb
+            envsubst < ./.github/workflows/bicep.rb.tpl > ./Formula/bicep.rb
 
+            echo "NEW_VERSION=$version" >> "$GITHUB_OUTPUT"
+          fi
 
-      # - name: Update update-homebrew branch
-      #   uses: stefanzweifel/git-auto-commit-action@v7
-      #   with:
-      #     commit_message: Update Homebrew to v${{ steps.get_release_version.outputs.result }}
-      #     branch: update-homebrew
-      #     create_branch: true
-
-      # - name: Shortcut for PR creation
-      #   run: echo "Use this link to create a PR -> https://github.com/Azure/homebrew-bicep/compare/main...update-homebrew"
+      - name: Create Pull Request
+        if: steps.update-bicep.outputs.NEW_VERSION
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: Update bicep to v${{steps.update-bicep.outputs.NEW_VERSION}}
+          title: Update bicep to v${{steps.update-bicep.outputs.NEW_VERSION}}
+          branch: update-bicep
+          reviewers: ${{ github.repository_owner }}
+          draft: always-true
