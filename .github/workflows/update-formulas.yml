@@ -1,0 +1,20 @@
+name: Update Formulas
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "55 6 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-azure-pim-cli:
+    uses: ./.github/workflows/update-azure-pim-cli.yml
+    with:
+      formula_name: azure-pim-cli
+
+  update-bicep:
+    uses: ./.github/workflows/update-bicep.yml
+    with:
+      formula_name: bicep

@@ -1,0 +1,29 @@
+name: Current version
+description: Get the current version of the formula
+
+inputs:
+  formula_name:
+    description: Name of the Homebrew formula
+    required: true
+
+outputs:
+  CUR_VERSION:
+    description: Current version of the formula
+    value: ${{ steps.get-version.outputs.CUR_VERSION }}
+
+runs:
+  using: composite
+  steps:
+    - name: current version
+      id: get-version
+      shell: bash
+      run: |
+        formula_file="Formula/${{ inputs.formula_name }}.rb"
+
+        if [[ -f $formula_file ]]; then
+          CUR_VERSION=$(grep -oP "version \"\K[\d.]+(?=\")" $formula_file)
+        else
+          CUR_VERSION="0"
+        fi
+
+        echo "CUR_VERSION=$CUR_VERSION" >> "$GITHUB_OUTPUT"

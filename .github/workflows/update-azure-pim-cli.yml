@@ -1,4 +1,4 @@
-name: Update bicep
+name: Update azure-pim-cli
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  update-bicep:
+  update-azure-pim-cli:
     runs-on: ubuntu-24.04
 
     permissions:
@@ -32,14 +32,14 @@ jobs:
         run: |
           set -euxo pipefail
 
-          release=$(curl -fsSL https://api.github.com/repos/Azure/bicep/releases/latest)
+          release=$(curl -fsSL https://api.github.com/repos/demoray/azure-pim-cli/releases/latest)
 
           version=$(jq -r '.name | ltrimstr("v")' <<< "$release")
           export version
 
           if [[ "$version" > "$(sort -V <<<"$(echo "$version"; echo "${{steps.current-version.outputs.CUR_VERSION}}")" | head -n1)" ]]; then
-            shas=$(jq '[.assets[] | select((.browser_download_url | contains("linux") or contains("osx")) and (.browser_download_url | contains("nupkg") | not)) | {key: (.name | sub("bicep"; "sha256") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
-            for item in sha256_{linux,osx}_{arm64,x64}
+            shas=$(jq --arg VER "$version" '[.assets[] | select((.browser_download_url | contains("linux") or contains("macos")) and (.browser_download_url | contains("dump-roles") | not)) | {key: (.name | sub("az-pim"; "sha256") | sub("-" + $VER; "") | sub("-musl"; "") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
+            for item in sha256_{linux,macos}
             do
               declare -x "$item"="$(jq -r --arg item "$item" '.[$item]' <<< "$shas")"
             done
