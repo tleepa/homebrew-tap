@@ -9,31 +9,27 @@ class Bicep < Formula
     strategy :github_latest
   end
 
-  on_macos do
-    on_intel do
+  if OS.mac?
+    if Hardware::CPU.intel?
       url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-osx-x64"
       sha256 "${sha256_osx_x64}"
     end
 
-    on_arm do
+    if Hardware::CPU.arm?
       url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-osx-arm64"
       sha256 "${sha256_osx_arm64}"
     end
   end
 
-  on_linux do
-    on_intel do
-      if Hardware::CPU.is_64_bit?
-        url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-linux-x64"
-        sha256 "${sha256_linux_x64}"
-      end
+  if OS.linux?
+    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
+      url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-linux-x64"
+      sha256 "${sha256_linux_x64}"
     end
 
-    on_arm do
-      if Hardware::CPU.is_64_bit?
-        url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-linux-arm64"
-        sha256 "${sha256_linux_arm64}"
-      end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-linux-arm64"
+      sha256 "${sha256_linux_arm64}"
     end
   end
 

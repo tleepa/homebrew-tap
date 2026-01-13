@@ -1,4 +1,4 @@
-name: Update az-pim-cli
+name: Update azure-pim-cli
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  update-az-pim-cli:
+  update-azure-pim-cli:
     runs-on: ubuntu-24.04
 
     permissions:

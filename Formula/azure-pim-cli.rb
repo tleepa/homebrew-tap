@@ -1,7 +1,6 @@
-class AzPimCli < Formula
-  desc "Unofficial CLI to list and enable Azure Privileged Identity Management (PIM) roles"
+class AzurePimCli < Formula
+  desc "Unofficial CLI to list and enable Azure Privileged Identity Management roles"
   homepage "https://github.com/demoray/azure-pim-cli"
-  version "${version}"
   license "MIT"
 
   livecheck do
@@ -10,13 +9,17 @@ class AzPimCli < Formula
   end
 
   on_macos do
-    url "https://github.com/demoray/azure-pim-cli/releases/download/${version}/az-pim-macos-${version}"
-    sha256 "${sha256_macos}"
+    depends_on arch: :arm64
   end
 
-  on_linux do
-    url "https://github.com/demoray/azure-pim-cli/releases/download/${version}/az-pim-linux-musl-${version}"
-    sha256 "${sha256_linux}"
+  if OS.mac?
+    url "https://github.com/demoray/azure-pim-cli/releases/download/0.11.0/az-pim-macos-0.11.0"
+    sha256 "4aadd2bc09a5a213b1c090a77824c24467b5b4cb73e8c16553d8eb01bd7f4be7"
+  end
+
+  if OS.linux?
+    url "https://github.com/demoray/azure-pim-cli/releases/download/0.11.0/az-pim-linux-musl-0.11.0"
+    sha256 "7e2e6224e2e02f32d79a5f8828f76719b09b5766127d1674b7fef1647f2b7e47"
   end
 
   def install

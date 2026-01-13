@@ -6,10 +6,16 @@ inputs:
     description: Name of the Homebrew formula
     required: true
 
+outputs:
+  CUR_VERSION:
+    description: Current version of the formula
+    value: ${{ steps.get-version.outputs.CUR_VERSION }}
+
 runs:
   using: composite
   steps:
     - name: current version
+      id: get-version
       shell: bash
       run: |
         formula_file="Formula/${{ inputs.formula_name }}.rb"

@@ -9,10 +9,10 @@ permissions:
   pull-requests: write
 
 jobs:
-  update-az-pim-cli:
-    uses: ./.github/workflows/update-az-pim-cli.yml
+  update-azure-pim-cli:
+    uses: ./.github/workflows/update-azure-pim-cli.yml
     with:
-      formula_name: az-pim-cli
+      formula_name: azure-pim-cli
 
   update-bicep:
     uses: ./.github/workflows/update-bicep.yml
