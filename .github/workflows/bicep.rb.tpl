@@ -1,8 +1,6 @@
 class Bicep < Formula
   desc "Declarative language for describing and deploying Azure resources"
   homepage "https://github.com/Azure/bicep"
-  # url "https://github.com/Azure/bicep/archive/refs/tags/v${version}.tar.gz"
-  # sha256 "45f12c684b0e881069b0ab81af9558fc9a5b8c0d9c75bff99932c49269def04b"
   version "${version}"
   license "MIT"
 
