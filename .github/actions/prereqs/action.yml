@@ -1,0 +1,11 @@
+name: Prerequisites
+description: Install prerequisites for workflows
+
+runs:
+  using: composite
+  steps:
+    - name: install prerequisites
+      shell: bash
+      run: |
+        set -euxo pipefail
+        command -v envsubst || (apt-get update && apt-get -y install gettext)
