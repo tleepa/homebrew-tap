@@ -1,4 +1,4 @@
-name: Update bicep
+name: Update powershell
 
 on:
   workflow_call:
@@ -32,13 +32,13 @@ jobs:
         run: |
           set -euxo pipefail
 
-          release=$(curl -fsSL https://api.github.com/repos/Azure/bicep/releases/latest)
+          release=$(curl -fsSL https://api.github.com/repos/PowerShell/PowerShell/releases/latest)
 
-          version=$(jq -r '.name | ltrimstr("v")' <<< "$release")
+          version=$(jq -r '.tag_name | ltrimstr("v")' <<< "$release")
           export version
 
           if [[ "$version" > "$(sort -V <<<"$(echo "$version"; echo "${{steps.current-version.outputs.CUR_VERSION}}")" | head -n1)" ]]; then
-            shas=$(jq '[.assets[] | select((.browser_download_url | contains("linux") or contains("osx")) and (.browser_download_url | contains("nupkg") | not)) | {key: (.name | sub("bicep"; "sha256") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
+            shas=$(jq --arg ver "$version" '[.assets[] | select((.browser_download_url | contains("linux-arm64.tar") or contains("linux-x64.tar") or contains("osx-arm64.tar") or contains("osx-x64.tar"))) | {key: (.name | sub("powershell-" + $ver; "sha256") | sub(".tar.gz"; "") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
             for item in sha256_{linux,osx}_{arm64,x64}
             do
               declare -x "$item"="$(jq -r --arg item "$item" '.[$item]' <<< "$shas")"

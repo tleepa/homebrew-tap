@@ -18,3 +18,8 @@ jobs:
     uses: ./.github/workflows/update-bicep.yml
     with:
       formula_name: bicep
+
+  update-powershell:
+    uses: ./.github/workflows/update-powershell.yml
+    with:
+      formula_name: powershell

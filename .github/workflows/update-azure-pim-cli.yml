@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  update-azure-pim-cli:
+  update:
     runs-on: ubuntu-24.04
 
     permissions:
