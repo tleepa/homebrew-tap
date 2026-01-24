@@ -11,7 +11,6 @@ class Powershell < Formula
 
   on_macos do
     depends_on macos: :ventura
-    depends_on arch: :arm64
   end
 
   if OS.mac?
@@ -44,7 +43,24 @@ class Powershell < Formula
     bin.install_symlink libexec/"pwsh"
   end
 
+  def caveats
+    <<~EOS
+      The executable should already be on PATH so run with `pwsh`. If not, the full path to the executable is:
+        #{bin}/pwsh
+
+      Other application files were installed at :
+        #{libexec}
+
+      If you also have the Cask installed, you need to run the following to make the formula your default install:
+        brew link --overwrite powershell
+
+      If you would like to make PowerShell your default shell, run
+        sudo sh -c "echo '#{bin}/pwsh' >> /etc/shells"
+        chsh -s #{bin}/pwsh
+    EOS
+  end
+
   test do
-    assert_equal version.to_s, shell_output("#{bin}/pwsh -c '$psversiontable.psversion.tostring()'").strip
+    assert_equal version.to_s, shell_output("#{bin}/pwsh -c '$PSVersionTable.PSVersion.ToString()'").strip
   end
 end
