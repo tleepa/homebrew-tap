@@ -2,7 +2,7 @@ class AzurePimCli < Formula
   desc "Unofficial CLI to list and enable Azure Privileged Identity Management roles"
   homepage "https://github.com/demoray/azure-pim-cli"
   license "MIT"
-  # version "0.13.0"
+  # version "0.14.0"
 
   livecheck do
     url :stable
@@ -14,17 +14,17 @@ class AzurePimCli < Formula
   end
 
   if OS.mac?
-    url "https://github.com/demoray/azure-pim-cli/releases/download/0.13.0/az-pim-macos-0.13.0"
-    sha256 "e817ae4da294f29efef12ecceebe3be9f68a26558074e9ca4b92c8195bf3f90b"
+    url "https://github.com/demoray/azure-pim-cli/releases/download/0.14.0/az-pim-macos-0.14.0"
+    sha256 "76a8baa292a1486e04c5cff448aa1f02fa2ccf2b68b96802d3e13e07bfe763d2"
   end
 
   if OS.linux?
-    url "https://github.com/demoray/azure-pim-cli/releases/download/0.13.0/az-pim-linux-musl-0.13.0"
-    sha256 "e4234dcbb79dab617882b8a35acbbcad070b179992704983bbead8fed48e26b0"
+    url "https://github.com/demoray/azure-pim-cli/releases/download/0.14.0/az-pim-linux-musl-0.14.0"
+    sha256 "14f9f0a8da48641e3f1590823023c00a5e9f7baad278dc9f106b4a2c7bd2c9eb"
   end
 
   def install
-    binary_name = OS.mac? ? "az-pim-macos-0.13.0" : "az-pim-linux-musl-0.13.0"
+    binary_name = OS.mac? ? "az-pim-macos-0.14.0" : "az-pim-linux-musl-0.14.0"
     binary_path = Pathname.pwd/binary_name
     chmod 0755, binary_name
     generate_completions_from_executable(binary_path, "init", shells: [:bash, :zsh, :fish, :pwsh])
