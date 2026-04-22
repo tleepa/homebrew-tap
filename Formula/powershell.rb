@@ -1,7 +1,7 @@
 class Powershell < Formula
   desc "Cross-platform shell"
   homepage "https://github.com/PowerShell/PowerShell"
-  version "7.6.0"
+  version "7.6.1"
   license "MIT"
 
   livecheck do
@@ -15,25 +15,25 @@ class Powershell < Formula
 
   if OS.mac?
     if Hardware::CPU.intel?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.0/powershell-7.6.0-osx-x64.tar.gz"
-      sha256 "7c6279cfead06324451a10ff741883086c9a00f024baea924bb9d3c106fe0c82"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.1/powershell-7.6.1-osx-x64.tar.gz"
+      sha256 "b5f874a832bec2ba78cd3e44fdbcb04c1b6144d9eab42b9881cb8b9400bcc504"
     end
 
     if Hardware::CPU.arm?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.0/powershell-7.6.0-osx-arm64.tar.gz"
-      sha256 "bb52db90e964ee0b91e93f559b350878c6b27c12fd51830d8eca1793712b9639"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.1/powershell-7.6.1-osx-arm64.tar.gz"
+      sha256 "9e1078f70b11c40e10f4bad1354db1cdcaf38cd6775fcf40e0738e3f5ac6807e"
     end
   end
 
   if OS.linux?
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.0/powershell-7.6.0-linux-x64.tar.gz"
-      sha256 "04517472cf57d7f9cbd93897da9bed467c73ca6063c29d7655ebc20aa1d6023f"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.1/powershell-7.6.1-linux-x64.tar.gz"
+      sha256 "dfc94229767921603f7c3e1cb1ac5aa931448af7496ccf657723b6278057c415"
     end
 
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.0/powershell-7.6.0-linux-arm64.tar.gz"
-      sha256 "dddf7564fb3b52dc26be5580fc5b4e08eb3fa65b094488aae6d4b3cad5fea460"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.1/powershell-7.6.1-linux-arm64.tar.gz"
+      sha256 "73498813194ea0d849d5942332ee6e51657ea66da08216aa1050788d5c52b741"
     end
   end
 
