@@ -37,7 +37,7 @@ jobs:
           version=$(jq -r '.tag_name | ltrimstr("v")' <<< "$release")
           export version
 
-          if [[ "$version" > "$(sort -V <<<"$(echo "$version"; echo "${{steps.current-version.outputs.CUR_VERSION}}")" | head -n1)" ]]; then
+          if [[ "$version" != "${{steps.current-version.outputs.CUR_VERSION}}" && "$version" == "$(sort -Vr <<<"$(echo "$version"; echo "${{steps.current-version.outputs.CUR_VERSION}}")" | head -n1)" ]]; then
             shas=$(jq --arg ver "$version" '[.assets[] | select((.browser_download_url | contains("linux-arm64.tar") or contains("linux-x64.tar") or contains("osx-arm64.tar") or contains("osx-x64.tar"))) | {key: (.name | sub("powershell-" + $ver; "sha256") | sub(".tar.gz"; "") | gsub("-"; "_")), value: (.digest | ltrimstr("sha256:"))}] | from_entries' <<< "$release")
             for item in sha256_{linux,osx}_{arm64,x64}
             do
