@@ -1,7 +1,7 @@
 class Bicep < Formula
   desc "Declarative language for describing and deploying Azure resources"
   homepage "https://github.com/Azure/bicep"
-  version "${version}"
+  # version "${version}"
   license "MIT"
 
   livecheck do

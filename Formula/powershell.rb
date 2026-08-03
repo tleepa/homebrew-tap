@@ -1,8 +1,8 @@
 class Powershell < Formula
   desc "Cross-platform shell"
   homepage "https://github.com/PowerShell/PowerShell"
-  version "7.6.4"
   license "MIT"
+  # version "7.6.4"
 
   livecheck do
     url :stable
