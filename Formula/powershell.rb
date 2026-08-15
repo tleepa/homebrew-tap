@@ -1,8 +1,8 @@
 class Powershell < Formula
   desc "Cross-platform shell"
   homepage "https://github.com/PowerShell/PowerShell"
+  # version "7.6.5"
   license "MIT"
-  # version "7.6.4"
 
   livecheck do
     url :stable
@@ -15,25 +15,25 @@ class Powershell < Formula
 
   if OS.mac?
     if Hardware::CPU.intel?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.4/powershell-7.6.4-osx-x64.tar.gz"
-      sha256 "b58e4b96dbdca20c058d4462f33509d386c0d768751344611bc04aaf32e4187c"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.5/powershell-7.6.5-osx-x64.tar.gz"
+      sha256 "3db1d177ab39511c1b6b73b05a1630a5db4e8dce22857ca76f14c5d98f2733fd"
     end
 
     if Hardware::CPU.arm?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.4/powershell-7.6.4-osx-arm64.tar.gz"
-      sha256 "fff37135307d3a57038adb44eded6c3b4dcd2e254382f4913bc253499ef3469d"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.5/powershell-7.6.5-osx-arm64.tar.gz"
+      sha256 "8196d4b4e7c21b7f6df9d45687bb4e42dc8335f330b580d9eb15f3ef5042a8c3"
     end
   end
 
   if OS.linux?
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.4/powershell-7.6.4-linux-x64.tar.gz"
-      sha256 "4471b5a36bfe86ec7af8525d36bb1cacba0128e7aac22d05cc064bc00e604721"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.5/powershell-7.6.5-linux-x64.tar.gz"
+      sha256 "b34ab3b19acac1d3d4d0d3cfdb02acf62f457b0b6a962ff008132033f7566844"
     end
 
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.4/powershell-7.6.4-linux-arm64.tar.gz"
-      sha256 "d4ef2382fa452f2ccbdb48a01adbbce9ed64954872123970c16be6d086d1224b"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.5/powershell-7.6.5-linux-arm64.tar.gz"
+      sha256 "ed4084f215d8bce2edd23aa7cb1f1e7b0818e41363a635a22065d2701b6141df"
     end
   end
 
