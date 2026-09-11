@@ -16,7 +16,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Prereqs
         uses: ./.github/actions/prereqs
@@ -52,7 +52,7 @@ jobs:
 
       - name: Create Pull Request
         if: steps.update.outputs.NEW_VERSION
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           commit-message: Update ${{ inputs.formula_name }} to v${{steps.update.outputs.NEW_VERSION}}
           title: Update ${{ inputs.formula_name }} to v${{steps.update.outputs.NEW_VERSION}}
