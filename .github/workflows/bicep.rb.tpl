@@ -9,16 +9,13 @@ class Bicep < Formula
     strategy :github_latest
   end
 
-  if OS.mac?
-    if Hardware::CPU.intel?
-      url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-osx-x64"
-      sha256 "${sha256_osx_x64}"
-    end
+  on_macos do
+    depends_on arch: :arm64
+  end
 
-    if Hardware::CPU.arm?
-      url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-osx-arm64"
-      sha256 "${sha256_osx_arm64}"
-    end
+  if OS.mac?
+    url "https://github.com/Azure/bicep/releases/download/v${version}/bicep-osx-arm64"
+    sha256 "${sha256_osx_arm64}"
   end
 
   if OS.linux?
@@ -34,7 +31,7 @@ class Bicep < Formula
   end
 
   def install
-    bin.install "bicep-osx-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep" if OS.mac?
+    bin.install "bicep-osx-#{Hardware::CPU.arch}" => "bicep" if OS.mac?
     bin.install "bicep-linux-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep" if OS.linux?
   end
 

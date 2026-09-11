@@ -11,18 +11,12 @@ class Powershell < Formula
 
   on_macos do
     depends_on macos: :ventura
+    depends_on arch: :arm64
   end
 
   if OS.mac?
-    if Hardware::CPU.intel?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-osx-x64.tar.gz"
-      sha256 "${sha256_osx_x64}"
-    end
-
-    if Hardware::CPU.arm?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-osx-arm64.tar.gz"
-      sha256 "${sha256_osx_arm64}"
-    end
+    url "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-osx-arm64.tar.gz"
+    sha256 "${sha256_osx_arm64}"
   end
 
   if OS.linux?
