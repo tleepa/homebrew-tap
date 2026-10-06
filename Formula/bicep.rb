@@ -1,7 +1,7 @@
 class Bicep < Formula
   desc "Declarative language for describing and deploying Azure resources"
   homepage "https://github.com/Azure/bicep"
-  # version "0.47.16"
+  # version "0.48.1"
   license "MIT"
 
   livecheck do
@@ -9,32 +9,29 @@ class Bicep < Formula
     strategy :github_latest
   end
 
-  if OS.mac?
-    if Hardware::CPU.intel?
-      url "https://github.com/Azure/bicep/releases/download/v0.47.16/bicep-osx-x64"
-      sha256 "8ba5771b5261413d88583829f2ea24509eb65b06d899620c17283ecb60d5ca73"
-    end
+  on_macos do
+    depends_on arch: :arm64
+  end
 
-    if Hardware::CPU.arm?
-      url "https://github.com/Azure/bicep/releases/download/v0.47.16/bicep-osx-arm64"
-      sha256 "68046a084c88503cf6bd11dacf2a1c4ffcb7e3ac9c6b310d295e024af21bbea4"
-    end
+  if OS.mac?
+    url "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-osx-arm64"
+    sha256 "62cd5958c62fa1b738e9b69f24799fabddb90ed83fdb7d6d2563dde376ce479d"
   end
 
   if OS.linux?
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/Azure/bicep/releases/download/v0.47.16/bicep-linux-x64"
-      sha256 "64c345a58e0c3e48b1bc98a4e62d6b3adb1d238281297de3400aeafb2697aa5a"
+      url "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-linux-x64"
+      sha256 "b09ec25a9d376c1f8e33ede6ed22b587f915ad68488d5db77a6f9541748c7f6e"
     end
 
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/Azure/bicep/releases/download/v0.47.16/bicep-linux-arm64"
-      sha256 "4406214cc274cfac7c821552aec2178b80aec637d91ed8b244282964c1cf24e3"
+      url "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-linux-arm64"
+      sha256 "9cbf6a211137e894a863fbc842e355c2197fc2124a7bda902afe1bceffa35245"
     end
   end
 
   def install
-    bin.install "bicep-osx-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep" if OS.mac?
+    bin.install "bicep-osx-#{Hardware::CPU.arch}" => "bicep" if OS.mac?
     bin.install "bicep-linux-#{Hardware::CPU.arch}".sub("x86_64", "x64") => "bicep" if OS.linux?
   end
 
