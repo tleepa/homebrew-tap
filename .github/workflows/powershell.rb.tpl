@@ -10,8 +10,8 @@ class Powershell < Formula
   end
 
   on_macos do
-    depends_on macos: :ventura
     depends_on arch: :arm64
+    depends_on macos: :ventura
   end
 
   if OS.mac?
