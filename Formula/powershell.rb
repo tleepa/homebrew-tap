@@ -1,7 +1,7 @@
 class Powershell < Formula
   desc "Cross-platform shell"
   homepage "https://github.com/PowerShell/PowerShell"
-  # version "7.6.8"
+  # version "7.6.9"
   license "MIT"
 
   livecheck do
@@ -15,19 +15,19 @@ class Powershell < Formula
   end
 
   if OS.mac?
-    url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.8/powershell-7.6.8-osx-arm64.tar.gz"
-    sha256 "c16a3f433966c6fd5a9c8a660a95c92cb5dbc4b1813416501d1ba30ca160da32"
+    url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.9/powershell-7.6.9-osx-arm64.tar.gz"
+    sha256 "a1c7e98ac403da4be5ba75c1c5855af272de7787a91d478c4267466fe58fc1af"
   end
 
   if OS.linux?
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.8/powershell-7.6.8-linux-x64.tar.gz"
-      sha256 "59112e38ad83350e4f6dc0195953c66b5926792f300ca2e7691b8242e7a16e7f"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.9/powershell-7.6.9-linux-x64.tar.gz"
+      sha256 "1da6d6d6035d651f20e70ddee7c4c15ac6ab8b9fb40ee92240d91263f28a884b"
     end
 
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.8/powershell-7.6.8-linux-arm64.tar.gz"
-      sha256 "3179e07fd98f026d39c730ebcb7626d071aac3351b171dda13f9f38d99efcef0"
+      url "https://github.com/PowerShell/PowerShell/releases/download/v7.6.9/powershell-7.6.9-linux-arm64.tar.gz"
+      sha256 "02eb9991af447c7e7fe881acde195961afd397c40b8eb1c2b3856b84ec2d85f2"
     end
   end
 
