@@ -1,7 +1,7 @@
 class Bicep < Formula
   desc "Declarative language for describing and deploying Azure resources"
   homepage "https://github.com/Azure/bicep"
-  # version "0.48.1"
+  # version "0.49.2"
   license "MIT"
 
   livecheck do
@@ -14,19 +14,19 @@ class Bicep < Formula
   end
 
   if OS.mac?
-    url "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-osx-arm64"
-    sha256 "62cd5958c62fa1b738e9b69f24799fabddb90ed83fdb7d6d2563dde376ce479d"
+    url "https://github.com/Azure/bicep/releases/download/v0.49.2/bicep-osx-arm64"
+    sha256 "8ae74a6cf9cbba0cb220c40cf0e955f98d59df950afab07c21b7bcb78c9c5d68"
   end
 
   if OS.linux?
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-linux-x64"
-      sha256 "b09ec25a9d376c1f8e33ede6ed22b587f915ad68488d5db77a6f9541748c7f6e"
+      url "https://github.com/Azure/bicep/releases/download/v0.49.2/bicep-linux-x64"
+      sha256 "0ab9de90c2493f206f8281bae74f9ee2d5ed3605548dab1adf41fef185e1f7c5"
     end
 
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-linux-arm64"
-      sha256 "9cbf6a211137e894a863fbc842e355c2197fc2124a7bda902afe1bceffa35245"
+      url "https://github.com/Azure/bicep/releases/download/v0.49.2/bicep-linux-arm64"
+      sha256 "48d8f152bd78c8848a41a07ac2d12b573306d9329fc961a85354a98a95cc275e"
     end
   end
 
